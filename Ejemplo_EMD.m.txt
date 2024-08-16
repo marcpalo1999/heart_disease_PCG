@@ -1,0 +1,23 @@
+load ecg
+L=length(ecg);
+t=(0:L-1)/fs;
+
+imf=emd(ecg);
+
+[Nimf,~]=size(imf);
+
+figure(11)
+subplot(Nimf,1,1),plot(t,ecg)
+xlabel('ecg')
+for i=1:Nimf,
+    subplot(Nimf+1,1,i+1)
+    plot(t,imf(i,:))
+    axis tight    
+    if i<Nimf,
+        ylabel(['IMF' num2str(i)])
+    else,
+        xlabel('t(s)')
+        ylabel('Residue')
+    end
+end
+sgtitle('Empirical Mode Decomposition (EMD)')
